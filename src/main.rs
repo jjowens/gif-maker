@@ -1,3 +1,3 @@
 fn main() {
-    println!("welcome to gif maker");
+    println!("Gif-Maker");
 }
