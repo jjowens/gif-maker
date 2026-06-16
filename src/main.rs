@@ -1,3 +1,5 @@
+mod services;
+
 use clap::{Parser, Subcommand};
 use crate::Commands::MakeGif;
 
@@ -14,9 +16,7 @@ enum Commands {
         #[clap(long)]
         openFileDirectory: String,
         #[clap(long, default_value = "test-output")]
-        saveGifDir: String,
-        #[clap(long, default_value = "test.gif")]
-        saveGifFilename: String
+        saveGifFilePath: String,
     }
 }
 
@@ -26,7 +26,7 @@ fn main() {
     let args = Args::parse();
 
     match args.command {
-        Some(Commands::MakeGif { openFileDirectory, saveGifDir, saveGifFilename }) => {
+        Some(Commands::MakeGif { openFileDirectory, saveGifFilePath }) => {
             println!("Making GIF");
         },
         None => (),
