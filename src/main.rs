@@ -2,6 +2,7 @@ mod services;
 
 use clap::{Parser, Subcommand};
 use crate::services::makegif_service;
+use crate::services::makegif_service::make_gif_256_colours;
 
 #[derive(Parser)]
 #[command(name = "appname", author, version, about, long_about = None)]
@@ -27,7 +28,8 @@ fn main() {
 
     match args.command {
         Some(Commands::MakeGif { open_file_directory, save_gif_file_path }) => {
-            makegif_service::make_gif(&open_file_directory, &save_gif_file_path).unwrap();
+            makegif_service::make_gif_alt(&open_file_directory, &save_gif_file_path).unwrap();
+            make_gif_256_colours(&open_file_directory, &save_gif_file_path).unwrap();
         },
         None => (),
     }
