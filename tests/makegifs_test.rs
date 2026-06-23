@@ -17,7 +17,7 @@ pub mod makegifs_test {
 
     #[test]
     fn create_countdown_gif() {
-        let output = create_gifs("test-images/numbers", "test-outputs/numbers.gif");
+        let output = create_gifs("test-images/numbers", "test-output/numbers.gif");
     }
 
 }
