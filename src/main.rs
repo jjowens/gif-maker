@@ -1,8 +1,7 @@
 mod services;
 
 use clap::{Parser, Subcommand};
-use crate::services::makegif_service;
-use crate::services::makegif_service::make_gif_256_colours;
+use crate::services::{gif_256_colours_service, makegif_service};
 
 #[derive(Parser)]
 #[command(name = "appname", author, version, about, long_about = None)]
@@ -36,7 +35,20 @@ enum Commands {
         open_file_directory: String,
         #[clap(long, default_value = "test-output/test.gif")]
         save_gif_file_path: String,
+    },
+    Make256 {
+        #[clap(long)]
+        open_file_directory: String,
+        #[clap(long, default_value = "test-output/make256.gif")]
+        save_gif_file_path: String,
+    },
+    MakeBeacon {
+        #[clap(long)]
+        open_file_directory: String,
+        #[clap(long, default_value = "test-output/make-beacon.gif")]
+        save_gif_file_path: String,
     }
+
 }
 
 fn main() {
@@ -46,13 +58,19 @@ fn main() {
 
     match args.command {
         Some(Commands::MakeGif { open_file_directory, save_gif_file_path }) => {
-            makegif_service::make_gif_alt(&open_file_directory, &save_gif_file_path).unwrap();
+            makegif_service::make_gif(&open_file_directory, &save_gif_file_path).unwrap();
         },
         Some(Commands::MakeCustom { open_file_directory, save_gif_file_path, width,height, colour_map }) => {
             makegif_service::clean_and_make_custom_gif(&open_file_directory, &save_gif_file_path, width, height, &colour_map).unwrap();
         },
         Some(Commands::MakeAlt { open_file_directory, save_gif_file_path }) => {
             makegif_service::make_gif_alt(&open_file_directory, &save_gif_file_path).unwrap();
+        },
+        Some(Commands::Make256 { open_file_directory, save_gif_file_path }) => {
+            gif_256_colours_service::make_gif_256_colours(&open_file_directory, &save_gif_file_path).unwrap();
+        },
+        Some(Commands::MakeBeacon{ open_file_directory, save_gif_file_path }) => {
+            gif_256_colours_service::make_beacon(&open_file_directory, &save_gif_file_path).unwrap();
         },
         None => (),
     }
