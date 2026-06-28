@@ -1,7 +1,7 @@
 #[cfg(test)]
 pub mod makegifs_test {
     use assert_cmd::Command;
-    const APP_NAME: &str = "gif_maker";
+    const APP_NAME: &str = "gifmaker";
 
     fn create_gifs(cmd_name: &str, open_directory: &str, save_file_path: &str) -> Result<(), String> {
         let mut cmd = Command::cargo_bin(APP_NAME).unwrap();
@@ -21,9 +21,8 @@ pub mod makegifs_test {
         cmd.arg(cmd_name)
             .arg("--open-file-directory").arg(open_directory)
             .arg("--save-gif-file-path").arg(save_file_path)
-            .arg("--save-gif-file-path").arg(save_file_path)
-            // .arg("--width").arg(width)
-            // .arg("--height").arg(height)
+            .arg("--width").arg(width)
+            .arg("--height").arg(height)
             .arg("--colour-map").arg(color_map);
 
         let output = cmd.unwrap();
@@ -33,16 +32,19 @@ pub mod makegifs_test {
 
     #[test]
     fn create_countdown_gif() {
+        println!("- create countdown gif: numbers.gif");
         let output = create_gifs("make-gif","test-images/numbers", "test-output/numbers.gif");
     }
 
     #[test]
     fn create_alt() {
+        println!("- create alt: custom.gif");
         let output = create_gifs("make-custom","test-images/numbers", "test-output/custom.gif");
     }
 
     #[test]
     fn create_custom_one() {
+        println!("- create custom one: custom_01.gif");
         let output = create_custom_gifs("make-custom",
                                         "test-images/numbers",
                                         "test-output/custom_01.gif",
