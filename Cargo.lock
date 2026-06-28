@@ -445,7 +445,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "gif_maker"
+name = "gifmaker"
 version = "0.1.0"
 dependencies = [
  "assert_cmd",

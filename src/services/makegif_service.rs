@@ -2,6 +2,7 @@ use std::net::Shutdown::Write;
 use image::{ImageEncoder, ImageFormat, open};
 use image::codecs::gif::GifEncoder;
 use crate::services::helper;
+use crate::services::helper::split_string_into_colour_map;
 
 pub fn make_gif(open_file_directory: &str, save_file_path: &str) -> Result<(), String> {
     println!("- Making GIF");
@@ -20,18 +21,21 @@ pub fn make_gif(open_file_directory: &str, save_file_path: &str) -> Result<(), S
     Ok(())
 }
 
-pub fn make_gif_alt(open_file_directory: &str, save_file_path: &str) -> Result<(), String> {
+pub fn clean_and_make_custom_gif(open_file_directory: &str, save_file_path: &str, width: u16, height: u16, colour_map: &str) -> Result<(), String> {
+    let new_colour_map = split_string_into_colour_map(colour_map);
+
+    make_custom_gif(open_file_directory, save_file_path, width, height, new_colour_map)?;
+    Ok(())
+}
+
+pub fn make_custom_gif(open_file_directory: &str, save_file_path: &str, width: u16, height: u16, colour_map: &[u8]) -> Result<(), String> {
     use gif::{Frame, Encoder, Repeat};
     use std::fs::File;
     use std::borrow::Cow;
 
     let vecs : Vec<String> = helper::get_images_from_directory(open_file_directory);
-
-    let color_map = &[0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
-    let (width, height) = (100, 100);
-
     let mut image = File::create(save_file_path).unwrap();
-    let mut encoder = Encoder::new(&mut image, width, height, color_map).unwrap();
+    let mut encoder = Encoder::new(&mut image, width, height, colour_map).unwrap();
     encoder.set_repeat(Repeat::Infinite).unwrap();
     for vec in &vecs {
         let frame_bytes = open(vec.to_string()).unwrap();
@@ -44,6 +48,12 @@ pub fn make_gif_alt(open_file_directory: &str, save_file_path: &str) -> Result<(
         frame.left = 0;
         encoder.write_frame(&frame).unwrap();
     }
+
+    Ok(())
+}
+
+pub fn make_gif_alt(open_file_directory: &str, save_file_path: &str) -> Result<(), String> {
+    make_custom_gif(open_file_directory, save_file_path, 100, 100, &[0x32, 0x32, 0x32, 0x32, 0x32, 0x32])?;
 
     Ok(())
 }

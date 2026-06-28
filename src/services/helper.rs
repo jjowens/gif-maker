@@ -14,3 +14,9 @@ pub fn get_images_from_directory(open_file_directory: &str) -> Vec<String> {
 
     vecs
 }
+
+pub fn split_string_into_colour_map(val: &str) -> &[u8] {
+    //let result = val.split(",").collect::<Vec<&[u8]>>();
+
+    &[0x32, 0x32, 0x32, 0x32, 0x32, 0x32]
+}
