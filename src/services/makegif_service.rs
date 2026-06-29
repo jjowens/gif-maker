@@ -1,5 +1,4 @@
-use std::net::Shutdown::Write;
-use image::{ImageEncoder, ImageFormat, open};
+use image::open;
 use image::codecs::gif::GifEncoder;
 use crate::services::helper;
 use crate::services::helper::split_string_into_colour_map;
@@ -9,12 +8,12 @@ pub fn make_gif(open_file_directory: &str, save_file_path: &str) -> Result<(), S
     println!("- Open Directory: {}", open_file_directory);
     println!("- Save GIF as: {}", save_file_path);
 
-    let vecs : Vec<String> = helper::get_images_from_directory(open_file_directory);
+    let _vecs : Vec<String> = helper::get_images_from_directory(open_file_directory);
 
     let mut imgbuf = image::ImageBuffer::<image::Rgb<u8>, _>::new(100, 100);
 
     let w  = imgbuf.as_mut();
-    let gifEncoder = GifEncoder::new(w);
+    let _gif_encoder = GifEncoder::new(w);
 
     //imgbuf.save_with_format(save_file_path, ImageFormat::Gif).unwrap();
 
@@ -22,12 +21,15 @@ pub fn make_gif(open_file_directory: &str, save_file_path: &str) -> Result<(), S
 }
 
 pub fn clean_and_make_custom_gif(open_file_directory: &str, save_file_path: &str, width: u16, height: u16, colour_map: &str) -> Result<(), String> {
-    let new_colour_map = split_string_into_colour_map(colour_map);
+    let _new_colour_map = split_string_into_colour_map(colour_map);
+
+    //let alternative_colour_map = &[0xFF,0xFF,0xFF,0xFF,0xFF,0xFF];
+    let alternative_colour_map = &[255,255,255,120,120,0];
 
     println!("- Making custom GIF");
     println!("- ColourMap: {}", colour_map);
 
-    make_custom_gif(open_file_directory, save_file_path, width, height, new_colour_map)?;
+    make_custom_gif(open_file_directory, save_file_path, width, height, alternative_colour_map)?;
     Ok(())
 }
 
