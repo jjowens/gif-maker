@@ -1,9 +1,4 @@
-pub fn create_dir_if_not_exists(directory_path: &str) -> std::io::Result<()> {
-    std::fs::create_dir_all(directory_path)?;
-    Ok(())
-}
-
-pub fn get_images_from_directory(open_file_directory: &str) -> Vec<String> {
+pub fn get_images_from_directory(_open_file_directory: &str) -> Vec<String> {
     let mut vecs  = vec![];
 
     vecs.push("test-images/numbers/countdown-01.png".to_string());
@@ -17,6 +12,14 @@ pub fn get_images_from_directory(open_file_directory: &str) -> Vec<String> {
 
 pub fn split_string_into_colour_map(val: &str) -> &[u8] {
     //let result = val.split(",").collect::<Vec<&[u8]>>();
+    let split_container = val.split(",");
 
-    &[0x32, 0x32, 0x32, 0x32, 0x32, 0x32]
+    let mut result = vec![];
+
+    for elem in split_container {
+        result.push(elem.as_bytes());
+    }
+
+    //&[0x32, 0x32, 0x32, 0x32, 0x32, 0x32]
+    &[0xFF,0xFF,0xFF,0,0,0]
 }

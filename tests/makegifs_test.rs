@@ -53,7 +53,7 @@ pub mod makegifs_test {
                                         "test-output/custom_01.gif",
                                         "100",
                                         "100",
-                                         "0x32, 0x32, 0x32, 0x32, 0x32, 0x32");
+                                         "0xFF, 0xFF, 0xFF, 0, 0, 0");
     }
 
     #[test]
@@ -74,8 +74,8 @@ pub mod makegifs_test {
         for idx in 1..=255 {
             let default_val = 120;
 
-            let colour_map = color_map_multiplier(format!("{}x32", default_val), 3);
-            let file_name = format!("test-output/custom_batch_{}_{}x32.gif", idx.to_string(), default_val);
+            let colour_map = color_map_multiplier(format!("{}xFF", default_val), 6);
+            let file_name = format!("test-output/custom_batch_{}_{}xFF.gif", idx.to_string(), default_val);
 
             println!("- colour map: {}", colour_map);
 

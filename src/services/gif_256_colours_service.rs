@@ -1,10 +1,4 @@
-use std::net::Shutdown::Write;
-use image::{ImageEncoder, ImageFormat, open};
-use image::codecs::gif::GifEncoder;
-use crate::services::helper;
-use crate::services::helper::split_string_into_colour_map;
-
-pub fn make_beacon(open_file_directory: &str, save_file_path: &str) -> Result<(), String> {
+pub fn make_beacon(_open_file_directory: &str, save_file_path: &str) -> Result<(), String> {
     use gif::{Frame, Encoder, Repeat};
     use std::fs::File;
     use std::borrow::Cow;
@@ -39,7 +33,7 @@ pub fn make_beacon(open_file_directory: &str, save_file_path: &str) -> Result<()
     Ok(())
 }
 
-pub fn make_gif_256_colours(open_file_directory: &str, save_file_path: &str) -> Result<(), String> {
+pub fn make_gif_256_colours(_open_file_directory: &str, save_file_path: &str) -> Result<(), String> {
     use std::fs::File;
 
     // Get pixel data from some source
@@ -54,7 +48,7 @@ pub fn make_gif_256_colours(open_file_directory: &str, save_file_path: &str) -> 
     Ok(())
 }
 
-pub fn make_gif_256_colours_alt(open_file_directory: &str, save_file_path: &str) -> Result<(), String> {
+pub fn make_gif_256_colours_alt(_open_file_directory: &str, save_file_path: &str) -> Result<(), String> {
     use std::fs::File;
 
     // Get pixel data from some source
@@ -62,7 +56,7 @@ pub fn make_gif_256_colours_alt(open_file_directory: &str, save_file_path: &str)
     // Create frame from data
     let frame = gif::Frame::from_rgb(100, 100, &mut *pixels);
     // Create encoder
-    let mut image = File::create("target/indexed_color.gif").unwrap();
+    let mut image = File::create(save_file_path).unwrap();
     let mut encoder = gif::Encoder::new(&mut image, frame.width, frame.height, &[]).unwrap();
     // Write frame to file
     encoder.write_frame(&frame).unwrap();

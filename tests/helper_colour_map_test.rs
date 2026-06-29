@@ -11,4 +11,12 @@ pub mod helper_colour_map_test {
         assert_eq!(&[0x32, 0x32, 0x32, 0x32, 0x32, 0x32], result)
     }
 
+    #[test]
+    fn test_split_string_into_colour_map_02() {
+        println!("- test_split_string_into_colour_map");
+        let result = split_string_into_colour_map("0xFF,0xFF,0xFF,0,0,0");
+
+        assert_eq!(&[0xFF, 0xFF, 0xFF, 0, 0, 0], result)
+    }
+
 }
