@@ -67,7 +67,7 @@ fn main() {
             makegif_service::make_gif_alt(&open_file_directory, &save_gif_file_path).unwrap();
         },
         Some(Commands::Make256 { open_file_directory, save_gif_file_path }) => {
-            gif_256_colours_service::make_gif_256_colours(&open_file_directory, &save_gif_file_path).unwrap();
+            gif_256_colours_service::make_gif_256_colours_alt(&open_file_directory, &save_gif_file_path).unwrap();
         },
         Some(Commands::MakeBeacon{ open_file_directory, save_gif_file_path }) => {
             gif_256_colours_service::make_beacon(&open_file_directory, &save_gif_file_path).unwrap();

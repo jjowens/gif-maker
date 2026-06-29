@@ -53,3 +53,18 @@ pub fn make_gif_256_colours(open_file_directory: &str, save_file_path: &str) -> 
     encoder.write_frame(&frame).unwrap();
     Ok(())
 }
+
+pub fn make_gif_256_colours_alt(open_file_directory: &str, save_file_path: &str) -> Result<(), String> {
+    use std::fs::File;
+
+    // Get pixel data from some source
+    let mut pixels: Vec<u8> = vec![0; 30_000];
+    // Create frame from data
+    let frame = gif::Frame::from_rgb(100, 100, &mut *pixels);
+    // Create encoder
+    let mut image = File::create("target/indexed_color.gif").unwrap();
+    let mut encoder = gif::Encoder::new(&mut image, frame.width, frame.height, &[]).unwrap();
+    // Write frame to file
+    encoder.write_frame(&frame).unwrap();
+    Ok(())
+}

@@ -1,6 +1,9 @@
 #[cfg(test)]
 pub mod makegifs_test {
+    use std::fmt::format;
     use assert_cmd::Command;
+    use gif::streaming_decoder::OutputBuffer::Vec;
+
     const APP_NAME: &str = "gifmaker";
 
     fn create_gifs(cmd_name: &str, open_directory: &str, save_file_path: &str) -> Result<(), String> {
@@ -51,6 +54,50 @@ pub mod makegifs_test {
                                         "100",
                                         "100",
                                          "0x32, 0x32, 0x32, 0x32, 0x32, 0x32");
+    }
+
+    #[test]
+    fn create_custom_two() {
+        println!("- create custom two: custom_02.gif");
+        let output = create_custom_gifs("make-custom",
+                                        "test-images/numbers",
+                                        "test-output/custom_02.gif",
+                                        "100",
+                                        "100",
+                                        "255x32, 100x32, 90x32, 0x32, 0x32");
+    }
+
+    #[test]
+    fn create_custom_batch() {
+        println!("- create custom batch:");
+
+        for idx in 1..=255 {
+            let default_val = 120;
+
+            let colour_map = color_map_multiplier(format!("{}x32", default_val), 3);
+            let file_name = format!("test-output/custom_batch_{}_{}x32.gif", idx.to_string(), default_val);
+
+            println!("- colour map: {}", colour_map);
+
+            let output = create_custom_gifs("make-custom",
+                                            "test-images/numbers",
+                                            file_name.as_str(),
+                                            "100",
+                                            "100",
+                                            colour_map.as_str());
+        }
+    }
+
+
+
+    fn color_map_multiplier(value: String, multiplier: i32) -> String {
+        let mut text_value = "".to_string();
+        for idx in 1..=multiplier {
+            text_value.push_str(&value);
+            text_value.push_str(",");
+        }
+
+        text_value.to_string()
     }
 
 }
