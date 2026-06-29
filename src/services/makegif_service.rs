@@ -24,6 +24,9 @@ pub fn make_gif(open_file_directory: &str, save_file_path: &str) -> Result<(), S
 pub fn clean_and_make_custom_gif(open_file_directory: &str, save_file_path: &str, width: u16, height: u16, colour_map: &str) -> Result<(), String> {
     let new_colour_map = split_string_into_colour_map(colour_map);
 
+    println!("- Making custom GIF");
+    println!("- ColourMap: {}", colour_map);
+
     make_custom_gif(open_file_directory, save_file_path, width, height, new_colour_map)?;
     Ok(())
 }
@@ -44,7 +47,7 @@ pub fn make_custom_gif(open_file_directory: &str, save_file_path: &str, width: u
         frame.height = height;
         frame.buffer =  Cow::Borrowed(frame_bytes.as_bytes());
         frame.delay = 30;
-        frame.top = 0;
+        frame.top = 2;
         frame.left = 0;
         encoder.write_frame(&frame).unwrap();
     }
