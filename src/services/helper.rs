@@ -10,16 +10,31 @@ pub fn get_images_from_directory(_open_file_directory: &str) -> Vec<String> {
     vecs
 }
 
-pub fn split_string_into_colour_map(val: &str) -> &[u8] {
-    //let result = val.split(",").collect::<Vec<&[u8]>>();
+pub fn split_string_into_colour_map(val: &str) -> Vec<i32> {
+    //let result = val.split(",");
     let split_container = val.split(",");
 
-    let mut result = vec![];
+    //let mut result = vec![];
+    let mut result : Vec<i32> = vec![];
 
     for elem in split_container {
-        result.push(elem.as_bytes());
+        result.push(elem.parse::<i32>().unwrap());
     }
 
-    //&[0x32, 0x32, 0x32, 0x32, 0x32, 0x32]
-    &[0xFF,0xFF,0xFF,0,0,0]
+    result.to_vec()
+}
+
+pub fn split_string_into_colour_map_as_u8(val: &str) -> Vec<u8> {
+    //let result = val.split(",");
+    let clean_value = val.replace(" ", "");
+    let split_container = clean_value.split(",");
+
+    //let mut result = vec![];
+    let mut result : Vec<u8> = vec![];
+
+    for elem in split_container {
+        result.push(elem.parse::<u8>().unwrap());
+    }
+
+    result.to_vec()
 }
