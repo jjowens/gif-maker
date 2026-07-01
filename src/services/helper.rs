@@ -6,6 +6,7 @@ pub fn get_images_from_directory(_open_file_directory: &str) -> Vec<String> {
     vecs.push("test-images/numbers/countdown-03.png".to_string());
     vecs.push("test-images/numbers/countdown-04.png".to_string());
     vecs.push("test-images/numbers/countdown-05.png".to_string());
+    vecs.push("test-images/numbers/countdown-05a.png".to_string());
 
     vecs
 }
