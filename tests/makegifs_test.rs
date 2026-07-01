@@ -133,6 +133,19 @@ pub mod makegifs_test {
     }
 
     #[test]
+    fn create_custom_gif_as_wildcard_02() {
+        println!("- create custom one: custom_wildcard_02.gif");
+        let output = create_custom_gifs(
+            "make-custom",
+            "test-images/numbers",
+            "test-output/custom_wildcard_02.gif",
+            "100",
+            "100",
+            "255, 0, 255",
+        );
+    }
+
+    #[test]
     fn create_custom_batch() {
         println!("- create custom batch:");
 

@@ -37,6 +37,7 @@ pub fn make_custom_gif(open_file_directory: &str, save_file_path: &str, width: u
 
     let vecs : Vec<String> = helper::get_images_from_directory(open_file_directory);
     //let colour_vecs: Vec<u8> = vec![255,255,255];
+    let mut pixels: Vec<u8> = vec![0; 30_000];
 
     let mut image = File::create(save_file_path).unwrap();
     let mut encoder = Encoder::new(&mut image, width, height, colour_map.as_slice()).unwrap();
@@ -48,7 +49,7 @@ pub fn make_custom_gif(open_file_directory: &str, save_file_path: &str, width: u
         frame.height = height;
         frame.buffer =  Cow::Borrowed(frame_bytes.as_bytes());
         frame.delay = 30;
-        frame.top = 2;
+        frame.top = 0;
         frame.left = 0;
         encoder.write_frame(&frame).unwrap();
     }
